@@ -79,6 +79,29 @@
                 
         
         postgres=#
-
-        
+#### Останавливаем контейнер с БД
+        docker ps
+        root@docker:/home/dklimovich# docker stop 5714c33f8663   
+        5714c33f8663
+        Соединение в консоли отвалилось
+#### Создаем новый контейнер сервер
+        root@docker:/home/dklimovich# docker run --name pg-docker-2 --network netpg -e POSTGRES_PASSWORD=postgres -d -p 5
+        432:5432 -v /var/lib/postgres:/var/lib/postgresql/data postgres:13
+        fc3093bbf8101860bc40d65ae750000efb2147143f9772babd87b129e22e9202
+#### Создаем контейнер с клиентом и сразу из него подключаемся
+        root@docker:/home/dklimovich# docker run -it --rm --network netpg --name pg-client postgres:13 psql -h pg-docker-
+        2 -U postgres
+        Password for user postgres: 
+        psql (13.6 (Debian 13.6-1.pgdg110+1))
+        Type "help" for help.
+        postgres=# select * from dba4;
+         id |  name   
+        ----+---------
+          1 | Dmitriy
+          2 | Ivan
+         3 | Petr
+        (3 rows)
+        postgres=# 
+#### Проверяем подключение из вне. Все снова заработало
+        Успех.
 
