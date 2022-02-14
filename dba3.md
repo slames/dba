@@ -25,3 +25,21 @@
         Digest: sha256:4c1152fba3fee3b378a2231f7f6f2bfc209d8f6f81f93ad9dab3bb708abed00f
         Status: Downloaded newer image for postgres:13
         5714c33f8663bdb8630e85bdd162d20bb66536f3a7fdf4a6b65e24099be548e3
+#### Подключаемся к контейнеру postgres и создаем базовое наполнение БД
+        dklimovich@docker:~$ sudo docker run -it --rm --network netpg --name pg-client postgres:13 psql -h pg-docker -U p
+        ostgres
+        Password for user postgres: 
+        psql (13.6 (Debian 13.6-1.pgdg110+1))
+        Type "help" for help.
+        postgres=# create table dba4 (id int, name text);
+        CREATE TABLE
+        postgres=# insert into dba4 (id, name) values (1, 'Dmitriy'), (2, 'Ivan'), (3,'Petr');
+        INSERT 0 3
+        postgres=# select id, name from dba4 ;
+         id |  name   
+        ----+---------
+          1 | Dmitriy
+          2 | Ivan
+          3 | Petr
+        (3 rows)
+        postgres=# 
