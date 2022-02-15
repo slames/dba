@@ -33,3 +33,44 @@
         CREATE ROLE
         testdb=# GRANT readonly to test123;
         GRANT ROLE
+#### Запускаем отдельную консоль и пробуем зайти пользователем. Вроде как получилось. Даже не пришлось pg_hba править
+        dklimovich@dba4logic:~$ psql -U test123 -h localhost testdb
+        Password for user test123: 
+        psql (13.6 (Ubuntu 13.6-1.pgdg20.04+1))
+        SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+        Type "help" for help.
+        testdb=> select * from testnm.t1;
+         c1 
+        ----
+          1
+        (1 row)
+#### видимо сразу создал и в схеме и без. К таблице в схеме public доступа у пользователя нет
+        testdb=> select * from public.t1;
+        ERROR:  permission denied for table t1
+#### Пытаемся создать таблицу под пользователем и вставить туда данные. Получилось
+        testdb=> create table t2(c1 integer);
+        CREATE TABLE
+        testdb=> insert into t2 values (2);
+        INSERT 0 1
+#### Запрашиваем права пользователя test123. Он довольно могуч в схеме public
+        testdb=# SELECT * FROM information_schema.table_privileges where grantee = 'test123';
+         grantor | grantee | table_catalog | table_schema | table_name | privilege_type | is_grantable | with_hierarchy 
+        ---------+---------+---------------+--------------+------------+----------------+--------------+----------------
+         test123 | test123 | testdb        | public       | t2         | INSERT         | YES          | NO
+         test123 | test123 | testdb        | public       | t2         | SELECT         | YES          | YES
+         test123 | test123 | testdb        | public       | t2         | UPDATE         | YES          | NO
+         test123 | test123 | testdb        | public       | t2         | DELETE         | YES          | NO
+         test123 | test123 | testdb        | public       | t2         | TRUNCATE       | YES          | NO
+         test123 | test123 | testdb        | public       | t2         | REFERENCES     | YES          | NO
+         test123 | test123 | testdb        | public       | t2         | TRIGGER        | YES          | NO
+        (7 rows)
+#### Пробую отозвать права на схему public у роли readonly. Неуспешно. Создание таблиц работает
+        REVOKE CREATE ON SCHEMA public FROM readonly;
+        testdb=> create table t3(c1 integer);
+        CREATE TABLE      
+#### Отзываю права всем пользователем кроме админов и владельцев 
+        testdb=# REVOKE CREATE ON SCHEMA public FROM PUBLIC;
+        REVOKE
+#### Успешно. Больше таблицу создать нельзя
+        testdb=> create table t4(c1 integer);
+        ERROR:  permission denied for schema public
