@@ -19,3 +19,17 @@
 #### Вставляем данные (1 строку)
         testdb=# insert into testnm.t1 values (1);
         INSERT 0 1
+#### Создаем роль и даем права по подключение к тестовой БД
+        testdb=# create role readonly;
+        CREATE ROLE
+        testdb=# GRANT CONNECT ON DATABASE testdb TO readonly;
+        GRANT
+#### Грантуем и создаем пользователя
+        testdb=# GRANT USAGE ON SCHEMA testnm TO readonly;
+        GRANT
+        testdb=# GRANT SELECT ON ALL TABLES IN SCHEMA testnm TO readonly;
+        GRANT
+        testdb=# create user test123 with encrypted password '1234';
+        CREATE ROLE
+        testdb=# GRANT readonly to test123;
+        GRANT ROLE
