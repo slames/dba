@@ -12,4 +12,17 @@
         work_mem = 6553kB
         min_wal_size = 4GB
         max_wal_size = 16GB
-####   
+####  Делаем базовую настройку и прогон 
+        postgres@dba5:/etc/postgresql/13/main/conf.d$ pgbench -i postgres
+        dropping old tables...
+        NOTICE:  table "pgbench_accounts" does not exist, skipping
+        NOTICE:  table "pgbench_branches" does not exist, skipping
+        NOTICE:  table "pgbench_history" does not exist, skipping
+        NOTICE:  table "pgbench_tellers" does not exist, skipping
+        creating tables...
+        generating data (client-side)...
+        100000 of 100000 tuples (100%) done (elapsed 0.10 s, remaining 0.00 s)
+        vacuuming...
+        creating primary keys...
+        done in 0.44 s (drop tables 0.00 s, create tables 0.01 s, client-side generate 0.29 s, vacuum 0.08 s, primary keys 0.07 s).
+ ####
