@@ -213,4 +213,20 @@
           tps = 1123.519763 (including connections establishing)
           tps = 1123.524776 (excluding connections establishing)
 
+#### удаляем кластер и создаем новый newmain. Включаем подсчет контрольных сумм
+          postgres@dba6:~$ pg_checksums -e --pgdata='/var/lib/postgresql/12/newmain'
+          pg_checksums: command not found
+          postgres@dba6:~$ /usr/lib/postgresql/12/bin/pg_checksums -e --pgdata='/var/lib/postgresql/12/newmain'
+          Checksum operation completed
+          Files scanned:  961
+          Blocks scanned: 3002
+          pg_checksums: syncing data directory
+          pg_checksums: updating control file
+          Checksums enabled in cluster
+#### Создаем БД test и такую же таблицу с двумя полями. Наполняем
+          test=# create table test (id integer, name text);
+          CREATE TABLE
+          test=# insert into test values (1, 't1'), (2,'t2'), (3,'t3');
+          INSERT 0 3
+#### 
 
