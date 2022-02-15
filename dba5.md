@@ -25,4 +25,16 @@
         vacuuming...
         creating primary keys...
         done in 0.44 s (drop tables 0.00 s, create tables 0.01 s, client-side generate 0.29 s, vacuum 0.08 s, primary keys 0.07 s).
- #### 
+ #### Стартовый прогон
+        progress: 600.0 s, 296.9 tps, lat 26.934 ms stddev 14.317
+        transaction type: <builtin: TPC-B (sort of)>
+        scaling factor: 1
+        query mode: simple
+        number of clients: 8
+        number of threads: 1
+        duration: 600 s
+        number of transactions actually processed: 448120
+        latency average = 10.710 ms
+        latency stddev = 17.467 ms
+        tps = 746.834296 (including connections establishing)
+        tps = 746.837514 (excluding connections establishing)
