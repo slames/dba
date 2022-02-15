@@ -301,190 +301,116 @@ duration: 600 s
 	progress: 590.0 s, 297.9 tps, lat 26.864 ms stddev 13.403
 	progress: 600.0 s, 298.0 tps, lat 26.845 ms stddev 13.111
 
+#### Пробуем оптимизации. Фактически влияния нет. Основной эффект от паузы между запусками, чтобы облако перестало резать ресурс
+#### Пример конфига 1
+	autovacuum = on
+	track_counts = on
+	autovacuum_vacuum_scale_factor = 0.01
+	autovacuum_vacuum_threshold = 5000
+	autovacuum_analyze_scale_factor = 0.01
+	autovacuum_analyze_threshold = 5000
+	autovacuum_vacuum_cost_limit = -1
+	autovacuum_vacuum_cost_delay = 20ms
+	vacuum_cost_page_hit = 1
+	vacuum_cost_page_miss = 10
+	vacuum_cost_page_dirty = 20
+	autovacuum_vacuum_insert_scale_factor = 0.2
+	autovacuum_vacuum_insert_threshold =1000
+	autovacuum_work_mem = -1
+	log_autovacuum_min_duration = -1
+	autovacuum_freeze_max_age = 200000000
 
-Оптимизация
-autovacuum = on
-track_counts = on
-autovacuum_vacuum_scale_factor = 0.01
-autovacuum_vacuum_threshold = 5000
-autovacuum_analyze_scale_factor = 0.01
-autovacuum_analyze_threshold = 5000
-autovacuum_vacuum_cost_limit = -1
-autovacuum_vacuum_cost_delay = 20ms
-vacuum_cost_page_hit = 1
-vacuum_cost_page_miss = 10
-vacuum_cost_page_dirty = 20
-autovacuum_vacuum_insert_scale_factor = 0.2
-autovacuum_vacuum_insert_threshold =1000
-autovacuum_work_mem = -1
-log_autovacuum_min_duration = -1
-autovacuum_freeze_max_age = 200000000
+# Пример конфига 2
 
-
-progress: 10.0 s, 1116.7 tps, lat 7.145 ms stddev 5.290
-progress: 20.0 s, 1105.5 tps, lat 7.234 ms stddev 6.524
-progress: 30.0 s, 1118.4 tps, lat 7.153 ms stddev 5.328
-progress: 40.0 s, 1108.0 tps, lat 7.218 ms stddev 5.507
-progress: 50.0 s, 1115.5 tps, lat 7.169 ms stddev 5.470
-progress: 60.0 s, 1130.7 tps, lat 7.078 ms stddev 5.172
-progress: 70.0 s, 1121.3 tps, lat 7.131 ms stddev 5.410
-progress: 80.0 s, 1123.7 tps, lat 7.121 ms stddev 5.149
-progress: 90.0 s, 1114.9 tps, lat 7.173 ms stddev 5.348
-progress: 100.0 s, 1107.9 tps, lat 7.222 ms stddev 5.299
-progress: 110.0 s, 1096.7 tps, lat 7.293 ms stddev 5.514
-progress: 120.0 s, 1128.9 tps, lat 7.086 ms stddev 5.177
-progress: 130.0 s, 1105.7 tps, lat 7.235 ms stddev 5.195
-progress: 140.0 s, 1109.0 tps, lat 7.212 ms stddev 5.155
-progress: 150.0 s, 1102.3 tps, lat 7.257 ms stddev 5.170
-progress: 160.0 s, 1098.8 tps, lat 7.279 ms stddev 5.154
-progress: 170.0 s, 1115.5 tps, lat 7.172 ms stddev 5.142
-progress: 180.0 s, 1115.8 tps, lat 7.169 ms stddev 5.003
-progress: 190.0 s, 1111.4 tps, lat 7.198 ms stddev 5.070
-progress: 200.0 s, 1049.8 tps, lat 7.620 ms stddev 8.875
-progress: 210.0 s, 648.5 tps, lat 12.335 ms stddev 24.004
-progress: 220.0 s, 645.2 tps, lat 12.397 ms stddev 23.911
-progress: 230.0 s, 613.4 tps, lat 13.042 ms stddev 24.975
-progress: 240.0 s, 645.3 tps, lat 12.396 ms stddev 23.654
-progress: 250.0 s, 633.7 tps, lat 12.624 ms stddev 23.557
-progress: 260.0 s, 651.0 tps, lat 12.289 ms stddev 23.377
-progress: 270.0 s, 649.7 tps, lat 12.311 ms stddev 23.259
-progress: 280.1 s, 641.4 tps, lat 12.337 ms stddev 23.344
-progress: 290.0 s, 632.8 tps, lat 12.777 ms stddev 25.233
-progress: 300.0 s, 640.4 tps, lat 12.496 ms stddev 24.434
-progress: 310.0 s, 634.4 tps, lat 12.608 ms stddev 24.888
-progress: 320.0 s, 634.9 tps, lat 12.595 ms stddev 24.858
-progress: 330.0 s, 637.9 tps, lat 12.529 ms stddev 25.033
-progress: 340.0 s, 637.6 tps, lat 12.544 ms stddev 24.358
-progress: 350.0 s, 605.9 tps, lat 13.204 ms stddev 26.496
-progress: 360.0 s, 638.6 tps, lat 12.527 ms stddev 25.081
-progress: 370.0 s, 637.2 tps, lat 12.553 ms stddev 24.648
-progress: 380.1 s, 627.4 tps, lat 12.610 ms stddev 25.077
-progress: 390.0 s, 650.8 tps, lat 12.427 ms stddev 24.852
-progress: 400.1 s, 627.7 tps, lat 12.604 ms stddev 25.078
-progress: 410.0 s, 616.0 tps, lat 13.135 ms stddev 26.266
-progress: 420.1 s, 630.0 tps, lat 12.558 ms stddev 24.979
-progress: 430.0 s, 640.3 tps, lat 12.633 ms stddev 24.881
-progress: 440.0 s, 625.5 tps, lat 12.789 ms stddev 24.641
-progress: 450.0 s, 635.6 tps, lat 12.582 ms stddev 25.066
-progress: 460.0 s, 631.7 tps, lat 12.665 ms stddev 25.005
-progress: 470.0 s, 607.7 tps, lat 13.168 ms stddev 26.100
-progress: 480.0 s, 639.6 tps, lat 12.506 ms stddev 24.777
-progress: 490.0 s, 609.8 tps, lat 13.117 ms stddev 26.330
-progress: 500.0 s, 637.7 tps, lat 12.544 ms stddev 24.695
-progress: 510.0 s, 646.9 tps, lat 12.367 ms stddev 24.673
-progress: 520.0 s, 597.2 tps, lat 13.371 ms stddev 24.211
-progress: 530.0 s, 287.5 tps, lat 27.840 ms stddev 17.124
-progress: 540.0 s, 297.4 tps, lat 26.907 ms stddev 12.264
-progress: 550.0 s, 297.5 tps, lat 26.849 ms stddev 12.473
-progress: 560.0 s, 295.5 tps, lat 27.103 ms stddev 14.326
-progress: 570.0 s, 293.9 tps, lat 27.215 ms stddev 13.982
-progress: 580.0 s, 298.0 tps, lat 26.836 ms stddev 13.137
-progress: 590.0 s, 296.0 tps, lat 27.042 ms stddev 13.710
-progress: 600.0 s, 297.6 tps, lat 26.884 ms stddev 12.832
-transaction type: <builtin: TPC-B (sort of)>
-scaling factor: 1
-query mode: simple
-number of clients: 8
-number of threads: 1
-duration: 600 s
-number of transactions actually processed: 448123
-latency average = 10.710 ms
-latency stddev = 17.997 ms
-tps = 746.841112 (including connections establishing)
-tps = 746.844470 (excluding connections establishing)
-
-
-Еще небольшая оптимизация и пауза на ВМ
-Page up
-autovacuum = on
-track_counts = on
-autovacuum_vacuum_scale_factor = 0.01
-autovacuum_vacuum_threshold = 5000
-autovacuum_analyze_scale_factor = 0.01
-autovacuum_analyze_threshold = 5000
-autovacuum_vacuum_cost_limit = -1
-autovacuum_vacuum_cost_delay = 20ms
-vacuum_cost_page_hit = 1
-vacuum_cost_page_miss = 10
-vacuum_cost_page_dirty = 20
-autovacuum_vacuum_insert_scale_factor = 0.2
-autovacuum_vacuum_insert_threshold =1000
-autovacuum_work_mem = -1
-log_autovacuum_min_duration = -1
-autovacuum_freeze_max_age = 200000000
-autovacuum_naptime = 1
-
-postgres@dba5:/etc/postgresql/13/main/conf.d$ pgbench -c8 -P 10 -T 600 -U postgres postgres
-starting vacuum...end.
-progress: 10.0 s, 1091.5 tps, lat 7.309 ms stddev 5.740
-progress: 20.0 s, 1119.4 tps, lat 7.146 ms stddev 5.567
-progress: 30.0 s, 1123.6 tps, lat 7.120 ms stddev 5.745
-progress: 40.0 s, 1126.0 tps, lat 7.102 ms stddev 5.649
-progress: 50.0 s, 1122.2 tps, lat 7.129 ms stddev 5.614
-progress: 60.0 s, 1108.1 tps, lat 7.219 ms stddev 5.575
-progress: 70.0 s, 1118.0 tps, lat 7.155 ms stddev 5.507
-progress: 80.0 s, 1103.2 tps, lat 7.248 ms stddev 5.436
-progress: 90.0 s, 1109.6 tps, lat 7.205 ms stddev 5.553
-progress: 100.0 s, 1065.3 tps, lat 7.514 ms stddev 5.487
-progress: 110.0 s, 1118.8 tps, lat 7.151 ms stddev 5.432
-progress: 120.0 s, 1125.1 tps, lat 7.108 ms stddev 5.227
-progress: 130.0 s, 1119.8 tps, lat 7.144 ms stddev 5.364
-progress: 140.0 s, 1099.0 tps, lat 7.278 ms stddev 5.449
-progress: 150.0 s, 1100.9 tps, lat 7.265 ms stddev 5.448
-progress: 160.0 s, 1114.7 tps, lat 7.176 ms stddev 5.086
-progress: 170.0 s, 1066.8 tps, lat 7.499 ms stddev 5.680
-progress: 180.0 s, 1055.1 tps, lat 7.580 ms stddev 5.688
-progress: 190.0 s, 1098.3 tps, lat 7.284 ms stddev 5.186
-progress: 200.0 s, 967.9 tps, lat 8.264 ms stddev 12.042
-progress: 210.0 s, 651.5 tps, lat 12.278 ms stddev 23.663
-progress: 220.0 s, 634.5 tps, lat 12.608 ms stddev 24.715
-progress: 230.0 s, 632.4 tps, lat 12.650 ms stddev 24.969
-progress: 240.0 s, 637.6 tps, lat 12.546 ms stddev 25.106
-progress: 250.0 s, 652.1 tps, lat 12.262 ms stddev 23.767
-progress: 260.0 s, 630.0 tps, lat 12.704 ms stddev 24.454
-progress: 270.0 s, 625.2 tps, lat 12.791 ms stddev 24.639
-progress: 280.0 s, 618.4 tps, lat 12.935 ms stddev 24.687
-progress: 290.0 s, 647.1 tps, lat 12.366 ms stddev 23.815
-progress: 300.0 s, 625.8 tps, lat 12.780 ms stddev 25.664
-progress: 310.0 s, 622.3 tps, lat 12.857 ms stddev 25.525
-progress: 320.0 s, 634.7 tps, lat 12.599 ms stddev 24.606
-progress: 330.0 s, 623.5 tps, lat 12.829 ms stddev 26.081
-progress: 340.0 s, 585.2 tps, lat 13.674 ms stddev 28.148
-progress: 350.0 s, 630.8 tps, lat 12.681 ms stddev 25.244
-progress: 360.0 s, 624.1 tps, lat 12.817 ms stddev 25.922
-progress: 370.0 s, 620.6 tps, lat 12.891 ms stddev 25.933
-progress: 380.0 s, 630.8 tps, lat 12.678 ms stddev 25.522
-progress: 390.0 s, 611.6 tps, lat 13.077 ms stddev 26.409
-progress: 400.0 s, 619.0 tps, lat 12.910 ms stddev 25.735
-progress: 410.0 s, 638.8 tps, lat 12.519 ms stddev 24.881
-progress: 420.0 s, 615.1 tps, lat 12.994 ms stddev 26.055
-progress: 430.0 s, 616.0 tps, lat 12.998 ms stddev 25.848
-progress: 440.0 s, 642.4 tps, lat 12.453 ms stddev 24.873
-progress: 450.0 s, 620.6 tps, lat 12.890 ms stddev 25.906
-progress: 460.0 s, 617.7 tps, lat 12.948 ms stddev 26.024
-progress: 470.0 s, 632.2 tps, lat 12.658 ms stddev 25.233
-progress: 480.0 s, 608.8 tps, lat 13.136 ms stddev 25.712
-progress: 490.0 s, 603.0 tps, lat 13.260 ms stddev 25.529
-progress: 500.0 s, 636.2 tps, lat 12.583 ms stddev 25.208
-progress: 510.0 s, 618.5 tps, lat 12.931 ms stddev 25.886
-progress: 520.0 s, 637.7 tps, lat 12.544 ms stddev 24.540
-progress: 530.0 s, 624.4 tps, lat 12.811 ms stddev 25.478
-progress: 540.0 s, 366.8 tps, lat 21.795 ms stddev 21.496
-progress: 550.0 s, 297.4 tps, lat 26.886 ms stddev 17.118
-progress: 560.0 s, 299.4 tps, lat 26.691 ms stddev 15.719
-progress: 570.0 s, 297.4 tps, lat 26.915 ms stddev 15.390
-progress: 580.0 s, 292.7 tps, lat 27.354 ms stddev 16.206
-progress: 590.0 s, 295.4 tps, lat 27.071 ms stddev 16.731
-progress: 600.0 s, 296.8 tps, lat 26.936 ms stddev 16.472
-transaction type: <builtin: TPC-B (sort of)>
-scaling factor: 1
-query mode: simple
-number of clients: 8
-number of threads: 1
-duration: 600 s
-number of transactions actually processed: 447686
-latency average = 10.720 ms
-latency stddev = 18.629 ms
-tps = 746.113267 (including connections establishing)
-tps = 746.116663 (excluding connections establishing)
+	autovacuum = on
+	track_counts = on
+	autovacuum_vacuum_scale_factor = 0.01
+	autovacuum_vacuum_threshold = 5000
+	autovacuum_analyze_scale_factor = 0.01
+	autovacuum_analyze_threshold = 5000
+	autovacuum_vacuum_cost_limit = -1
+	autovacuum_vacuum_cost_delay = 20ms
+	vacuum_cost_page_hit = 1
+	vacuum_cost_page_miss = 10
+	vacuum_cost_page_dirty = 20
+	autovacuum_vacuum_insert_scale_factor = 0.2
+	autovacuum_vacuum_insert_threshold =1000
+	autovacuum_work_mem = -1
+	log_autovacuum_min_duration = -1
+	autovacuum_freeze_max_age = 200000000
+	autovacuum_naptime = 1
+# результат прогона последнего конфига 
+	postgres@dba5:/etc/postgresql/13/main/conf.d$ pgbench -c8 -P 10 -T 600 -U postgres postgres
+	starting vacuum...end.
+	progress: 10.0 s, 1091.5 tps, lat 7.309 ms stddev 5.740
+	progress: 20.0 s, 1119.4 tps, lat 7.146 ms stddev 5.567
+	progress: 30.0 s, 1123.6 tps, lat 7.120 ms stddev 5.745
+	progress: 40.0 s, 1126.0 tps, lat 7.102 ms stddev 5.649
+	progress: 50.0 s, 1122.2 tps, lat 7.129 ms stddev 5.614
+	progress: 60.0 s, 1108.1 tps, lat 7.219 ms stddev 5.575
+	progress: 70.0 s, 1118.0 tps, lat 7.155 ms stddev 5.507
+	progress: 80.0 s, 1103.2 tps, lat 7.248 ms stddev 5.436
+	progress: 90.0 s, 1109.6 tps, lat 7.205 ms stddev 5.553
+	progress: 100.0 s, 1065.3 tps, lat 7.514 ms stddev 5.487
+	progress: 110.0 s, 1118.8 tps, lat 7.151 ms stddev 5.432
+	progress: 120.0 s, 1125.1 tps, lat 7.108 ms stddev 5.227
+	progress: 130.0 s, 1119.8 tps, lat 7.144 ms stddev 5.364
+	progress: 140.0 s, 1099.0 tps, lat 7.278 ms stddev 5.449
+	progress: 150.0 s, 1100.9 tps, lat 7.265 ms stddev 5.448
+	progress: 160.0 s, 1114.7 tps, lat 7.176 ms stddev 5.086
+	progress: 170.0 s, 1066.8 tps, lat 7.499 ms stddev 5.680
+	progress: 180.0 s, 1055.1 tps, lat 7.580 ms stddev 5.688
+	progress: 190.0 s, 1098.3 tps, lat 7.284 ms stddev 5.186
+	progress: 200.0 s, 967.9 tps, lat 8.264 ms stddev 12.042
+	progress: 210.0 s, 651.5 tps, lat 12.278 ms stddev 23.663
+	progress: 220.0 s, 634.5 tps, lat 12.608 ms stddev 24.715
+	progress: 230.0 s, 632.4 tps, lat 12.650 ms stddev 24.969
+	progress: 240.0 s, 637.6 tps, lat 12.546 ms stddev 25.106
+	progress: 250.0 s, 652.1 tps, lat 12.262 ms stddev 23.767
+	progress: 260.0 s, 630.0 tps, lat 12.704 ms stddev 24.454
+	progress: 270.0 s, 625.2 tps, lat 12.791 ms stddev 24.639
+	progress: 280.0 s, 618.4 tps, lat 12.935 ms stddev 24.687
+	progress: 290.0 s, 647.1 tps, lat 12.366 ms stddev 23.815
+	progress: 300.0 s, 625.8 tps, lat 12.780 ms stddev 25.664
+	progress: 310.0 s, 622.3 tps, lat 12.857 ms stddev 25.525
+	progress: 320.0 s, 634.7 tps, lat 12.599 ms stddev 24.606
+	progress: 330.0 s, 623.5 tps, lat 12.829 ms stddev 26.081
+	progress: 340.0 s, 585.2 tps, lat 13.674 ms stddev 28.148
+	progress: 350.0 s, 630.8 tps, lat 12.681 ms stddev 25.244
+	progress: 360.0 s, 624.1 tps, lat 12.817 ms stddev 25.922
+	progress: 370.0 s, 620.6 tps, lat 12.891 ms stddev 25.933
+	progress: 380.0 s, 630.8 tps, lat 12.678 ms stddev 25.522
+	progress: 390.0 s, 611.6 tps, lat 13.077 ms stddev 26.409
+	progress: 400.0 s, 619.0 tps, lat 12.910 ms stddev 25.735
+	progress: 410.0 s, 638.8 tps, lat 12.519 ms stddev 24.881
+	progress: 420.0 s, 615.1 tps, lat 12.994 ms stddev 26.055
+	progress: 430.0 s, 616.0 tps, lat 12.998 ms stddev 25.848
+	progress: 440.0 s, 642.4 tps, lat 12.453 ms stddev 24.873
+	progress: 450.0 s, 620.6 tps, lat 12.890 ms stddev 25.906
+	progress: 460.0 s, 617.7 tps, lat 12.948 ms stddev 26.024
+	progress: 470.0 s, 632.2 tps, lat 12.658 ms stddev 25.233
+	progress: 480.0 s, 608.8 tps, lat 13.136 ms stddev 25.712
+	progress: 490.0 s, 603.0 tps, lat 13.260 ms stddev 25.529
+	progress: 500.0 s, 636.2 tps, lat 12.583 ms stddev 25.208
+	progress: 510.0 s, 618.5 tps, lat 12.931 ms stddev 25.886
+	progress: 520.0 s, 637.7 tps, lat 12.544 ms stddev 24.540
+	progress: 530.0 s, 624.4 tps, lat 12.811 ms stddev 25.478
+	progress: 540.0 s, 366.8 tps, lat 21.795 ms stddev 21.496
+	progress: 550.0 s, 297.4 tps, lat 26.886 ms stddev 17.118
+	progress: 560.0 s, 299.4 tps, lat 26.691 ms stddev 15.719
+	progress: 570.0 s, 297.4 tps, lat 26.915 ms stddev 15.390
+	progress: 580.0 s, 292.7 tps, lat 27.354 ms stddev 16.206
+	progress: 590.0 s, 295.4 tps, lat 27.071 ms stddev 16.731
+	progress: 600.0 s, 296.8 tps, lat 26.936 ms stddev 16.472
+	transaction type: <builtin: TPC-B (sort of)>
+	scaling factor: 1
+	query mode: simple
+	number of clients: 8
+	number of threads: 1
+	duration: 600 s
+	number of transactions actually processed: 447686
+	latency average = 10.720 ms
+	latency stddev = 18.629 ms
+	tps = 746.113267 (including connections establishing)
+	tps = 746.116663 (excluding connections establishing)
 
