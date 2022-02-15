@@ -409,4 +409,7 @@
 	latency stddev = 18.629 ms
 	tps = 746.113267 (including connections establishing)
 	tps = 746.116663 (excluding connections establishing)
+#### Итоговый график
+![vacuum](https://user-images.githubusercontent.com/95148132/154134434-da63fda3-96df-4a81-b649-959c6162b7b8.png)
 
+#### Вывод. Оптимизация не заметна. Скорее поведение cloud видно. При росте нагрузки система душит виртуалку и все остальное остается мелочью на фоне. 
