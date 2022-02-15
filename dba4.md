@@ -74,3 +74,4 @@
 #### Успешно. Больше таблицу создать нельзя
         testdb=> create table t4(c1 integer);
         ERROR:  permission denied for schema public
+#### все изменения прав делал из отдельной консоли под postgres
