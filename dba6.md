@@ -138,6 +138,79 @@
           --------------------
            off
           (1 row)
-#### Прогоняем асинхронный pgbench
+#### Прогоняем асинхронный pgbench. Видим очевидный прирост почти в 2 раза по пиковым значениям, а число транзакций за тест в 1,5 раза
+          postgres@dba6:/home/dklimovich$ pgbench -c8 -P 10 -T 600 -U postgres postgres
+          starting vacuum...end.
+          progress: 10.0 s, 1894.1 tps, lat 4.213 ms stddev 1.275
+          progress: 20.0 s, 1921.4 tps, lat 4.163 ms stddev 1.267
+          progress: 30.0 s, 1885.5 tps, lat 4.242 ms stddev 1.313
+          progress: 40.0 s, 1898.6 tps, lat 4.213 ms stddev 1.278
+          progress: 50.0 s, 1925.9 tps, lat 4.153 ms stddev 1.237
+          progress: 60.0 s, 1902.9 tps, lat 4.203 ms stddev 1.267
+          progress: 70.0 s, 1895.3 tps, lat 4.220 ms stddev 1.277
+          progress: 80.0 s, 1835.9 tps, lat 4.357 ms stddev 1.494
+          progress: 90.0 s, 1892.5 tps, lat 4.225 ms stddev 1.316
+          progress: 100.0 s, 1904.2 tps, lat 4.202 ms stddev 1.267
+          progress: 110.0 s, 1913.2 tps, lat 4.181 ms stddev 1.270
+          progress: 120.0 s, 1912.0 tps, lat 4.183 ms stddev 1.407
+          progress: 130.0 s, 932.8 tps, lat 8.575 ms stddev 23.459
+          progress: 140.0 s, 927.9 tps, lat 8.620 ms stddev 23.530
+          progress: 150.0 s, 915.1 tps, lat 8.742 ms stddev 23.797
+          progress: 160.0 s, 928.2 tps, lat 8.618 ms stddev 23.449
+          progress: 170.0 s, 935.3 tps, lat 8.553 ms stddev 23.443
+          progress: 180.0 s, 931.8 tps, lat 8.571 ms stddev 23.505
+          progress: 190.0 s, 944.1 tps, lat 8.473 ms stddev 23.525
+          progress: 200.0 s, 934.6 tps, lat 8.558 ms stddev 23.437
+          progress: 210.0 s, 907.3 tps, lat 8.817 ms stddev 23.797
+          progress: 220.0 s, 926.4 tps, lat 8.635 ms stddev 23.506
+          progress: 230.0 s, 958.8 tps, lat 8.343 ms stddev 23.190
+          progress: 240.0 s, 929.0 tps, lat 8.611 ms stddev 23.454
+          progress: 250.0 s, 939.5 tps, lat 8.515 ms stddev 23.480
+          progress: 260.0 s, 939.6 tps, lat 8.513 ms stddev 23.366
+          progress: 270.0 s, 931.4 tps, lat 8.589 ms stddev 23.516
+          progress: 280.0 s, 936.1 tps, lat 8.545 ms stddev 23.549
+          progress: 290.0 s, 937.1 tps, lat 8.536 ms stddev 23.304
+          progress: 300.0 s, 921.2 tps, lat 8.683 ms stddev 23.712
+          progress: 310.0 s, 856.2 tps, lat 9.343 ms stddev 25.419
+          progress: 320.0 s, 945.4 tps, lat 8.462 ms stddev 23.279
+          progress: 330.0 s, 908.9 tps, lat 8.801 ms stddev 24.008
+          progress: 340.0 s, 929.5 tps, lat 8.606 ms stddev 23.383
+          progress: 350.0 s, 934.2 tps, lat 8.563 ms stddev 23.518
+          progress: 360.0 s, 939.5 tps, lat 8.515 ms stddev 23.414
+          progress: 370.0 s, 921.1 tps, lat 8.684 ms stddev 23.689
+          progress: 380.0 s, 926.7 tps, lat 8.632 ms stddev 23.486
+          progress: 390.0 s, 915.0 tps, lat 8.729 ms stddev 23.628
+          progress: 400.0 s, 909.2 tps, lat 8.798 ms stddev 23.850
+          progress: 410.0 s, 926.9 tps, lat 8.630 ms stddev 23.413
+          progress: 420.0 s, 935.9 tps, lat 8.547 ms stddev 23.561
+          progress: 430.0 s, 939.3 tps, lat 8.516 ms stddev 23.365
+          progress: 440.0 s, 935.1 tps, lat 8.554 ms stddev 23.496
+          progress: 450.0 s, 923.6 tps, lat 8.661 ms stddev 23.556
+          progress: 460.0 s, 941.3 tps, lat 8.498 ms stddev 23.369
+          progress: 470.0 s, 948.0 tps, lat 8.438 ms stddev 23.256
+          progress: 480.0 s, 938.2 tps, lat 8.527 ms stddev 23.410
+          progress: 490.0 s, 955.3 tps, lat 8.373 ms stddev 23.258
+          progress: 500.0 s, 948.0 tps, lat 8.438 ms stddev 23.299
+          progress: 510.0 s, 926.1 tps, lat 8.637 ms stddev 23.565
+          progress: 520.0 s, 932.3 tps, lat 8.580 ms stddev 23.366
+          progress: 530.0 s, 934.5 tps, lat 8.560 ms stddev 23.363
+          progress: 540.0 s, 943.9 tps, lat 8.475 ms stddev 23.472
+          progress: 550.0 s, 943.3 tps, lat 8.479 ms stddev 23.340
+          progress: 560.0 s, 852.3 tps, lat 9.386 ms stddev 25.432
+          progress: 570.0 s, 926.7 tps, lat 8.632 ms stddev 23.712
+          progress: 580.0 s, 938.2 tps, lat 8.526 ms stddev 23.394
+          progress: 590.0 s, 942.2 tps, lat 8.490 ms stddev 23.361
+          progress: 600.0 s, 937.8 tps, lat 8.530 ms stddev 23.483
+          transaction type: <builtin: TPC-B (sort of)>
+          scaling factor: 1
+          query mode: simple
+          number of clients: 8
+          number of threads: 1
+          duration: 600 s
+          number of transactions actually processed: 674131
+          latency average = 7.119 ms
+          latency stddev = 19.299 ms
+          tps = 1123.519763 (including connections establishing)
+          tps = 1123.524776 (excluding connections establishing)
 
 
