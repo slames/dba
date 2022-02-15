@@ -132,7 +132,12 @@
           s; distance=17515 kB, estimate=26294 kB
 #### Переключаемся в асинхронный режим
           ALTER SYSTEM SET synchronous_commit = off; 
-          и перезапуск кластера
+          и перезапуск кластера и проверка
+          postgres=# show synchronous_commit;
+           synchronous_commit 
+          --------------------
+           off
+          (1 row)
 #### Прогоняем асинхронный pgbench
 
 
