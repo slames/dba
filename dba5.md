@@ -238,7 +238,8 @@ duration: 600 s
 	progress: 580.0 s, 298.2 tps, lat 26.835 ms stddev 14.438
 	progress: 590.0 s, 297.4 tps, lat 26.905 ms stddev 14.965
 	progress: 600.0 s, 298.1 tps, lat 26.829 ms stddev 14.958
-####2 запуск c выключенным avtovacuum
+	
+#### 2 запуск c выключенным avtovacuum
 	progress: 10.0 s, 1165.3 tps, lat 6.847 ms stddev 4.813
 	progress: 20.0 s, 1168.6 tps, lat 6.845 ms stddev 4.821
 	progress: 30.0 s, 1197.6 tps, lat 6.680 ms stddev 4.552
