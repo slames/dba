@@ -49,3 +49,7 @@
         2022-02-16 12:02:17.240 UTC [7183] postgres@postgres LOG:  process 7183 still waiting for ExclusiveLock on tuple (0,5) of relation 16384 of database 13726 after 200.189 ms
         2022-02-16 12:02:17.240 UTC [7183] postgres@postgres DETAIL:  Process holding the lock: 6814. Wait queue: 7183.
         2022-02-16 12:02:17.240 UTC [7183] postgres@postgres STATEMENT:  update test1 set name = 'updatecheck3' where id = 1;
+        
+#### После коммита первой транзакции исполнилась следующая, ставшая в очередь
+#### Проверяем возможность блокировки UPDATE без условий
+
