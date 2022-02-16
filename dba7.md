@@ -41,3 +41,11 @@
          RowExclusiveLock - Заблокированна строка, идет операция записи или изменения. Все наши 3 апдейта поставили эти блокировки
          ShareLock - защита от одновременного изменения. Этот лок поставил первая транзакция  
  
+#### Расследуем в момент. Блокировка висит. Открывает лог и все довольно понятно
+        2022-02-16 12:02:00.235 UTC [6814] postgres@postgres LOG:  process 6814 still waiting for ShareLock on transaction 739 after 200.208 ms
+        2022-02-16 12:02:00.235 UTC [6814] postgres@postgres DETAIL:  Process holding the lock: 6828. Wait queue: 6814.
+        2022-02-16 12:02:00.235 UTC [6814] postgres@postgres CONTEXT:  while updating tuple (0,5) in relation "test1"
+        2022-02-16 12:02:00.235 UTC [6814] postgres@postgres STATEMENT:  update test1 set name = 'updatecheck2' where id = 1;
+        2022-02-16 12:02:17.240 UTC [7183] postgres@postgres LOG:  process 7183 still waiting for ExclusiveLock on tuple (0,5) of relation 16384 of database 13726 after 200.189 ms
+        2022-02-16 12:02:17.240 UTC [7183] postgres@postgres DETAIL:  Process holding the lock: 6814. Wait queue: 7183.
+        2022-02-16 12:02:17.240 UTC [7183] postgres@postgres STATEMENT:  update test1 set name = 'updatecheck3' where id = 1;
