@@ -51,5 +51,25 @@
         2022-02-16 12:02:17.240 UTC [7183] postgres@postgres STATEMENT:  update test1 set name = 'updatecheck3' where id = 1;
         
 #### После коммита первой транзакции исполнилась следующая, ставшая в очередь
-#### Проверяем возможность блокировки UPDATE без условий
+#### Проверяем возможность блокировки UPDATE без условий. Кажется логичным, что блокировка будет. UPDATE без условия будет еще более жестким. Например, заменим поле name во всех записях. Убедимся. Блокировка происходит
+        postgres=# select * from pg_locks;
+           locktype    | database | relation | page | tuple | virtualxid | transactionid | classid | objid | objsubid | virtualtransaction | pid  |       mode       | granted | fastpath |           waitstart           
+        ---------------+----------+----------+------+-------+------------+---------------+---------+-------+----------+--------------------+------+------------------+---------+----------+-------------------------------
+         relation      |    13726 |    16384 |      |       |            |               |         |       |          | 5/31               | 6828 | RowExclusiveLock | t       | t        | 
+         virtualxid    |          |          |      |       | 5/31       |               |         |       |          | 5/31               | 6828 | ExclusiveLock    | t       | t        | 
+         relation      |    13726 |    16384 |      |       |            |               |         |       |          | 4/27               | 6814 | RowExclusiveLock | t       | t        | 
+         virtualxid    |          |          |      |       | 4/27       |               |         |       |          | 4/27               | 6814 | ExclusiveLock    | t       | t        | 
+         relation      |    13726 |    12290 |      |       |            |               |         |       |          | 3/43               | 7263 | AccessShareLock  | t       | t        | 
+         virtualxid    |          |          |      |       | 3/43       |               |         |       |          | 3/43               | 7263 | ExclusiveLock    | t       | t        | 
+         tuple         |    13726 |    16384 |    0 |     3 |            |               |         |       |          | 4/27               | 6814 | ExclusiveLock    | t       | f        | 
+         transactionid |          |          |      |       |            |           743 |         |       |          | 4/27               | 6814 | ExclusiveLock    | t       | f        | 
+         transactionid |          |          |      |       |            |           742 |         |       |          | 5/31               | 6828 | ExclusiveLock    | t       | f        | 
+         transactionid |          |          |      |       |            |           742 |         |       |          | 4/27               | 6814 | ShareLock        | f       | f        | 2022-02-16 12:16:21.204537+00
+
+        В логах: 
+        2022-02-16 12:16:21.404 UTC [6814] postgres@postgres LOG:  process 6814 still waiting for ShareLock on transaction 742 after 200.140 ms
+        2022-02-16 12:16:21.404 UTC [6814] postgres@postgres DETAIL:  Process holding the lock: 6828. Wait queue: 6814.
+        2022-02-16 12:16:21.404 UTC [6814] postgres@postgres CONTEXT:  while updating tuple (0,3) in relation "test1"
+        2022-02-16 12:16:21.404 UTC [6814] postgres@postgres STATEMENT:  update test1 set name = 'updatecheck2';
+
 
